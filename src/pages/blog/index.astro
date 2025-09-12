@@ -1,0 +1,40 @@
+---
+import MainLayout from "../../layout/MainLayout.astro";
+import { getCollection } from "astro:content";
+import PostCard from "../../components/PostCard.astro";
+import Section from "../../components/sections/Section.astro";
+
+const posts = await getCollection("blog");
+---
+
+<MainLayout>
+    <Section id="posts" title="Blog">
+        <div id="posts-list">
+            {
+                posts.map((post) => (
+                    <PostCard
+                        id={post.data.id}
+                        title={post.data.title}
+                        description={post.data.description}
+                        publishedDate={post.data.publishedDate}
+                    />
+                ))
+            }
+        </div>
+    </Section>
+</MainLayout>
+
+<style>
+    #posts-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 15rem;
+        gap: 24px;
+    }
+
+    @media (max-width: 500px) {
+        #posts-list {
+            grid-template-columns: auto;
+        }
+    }
+</style>

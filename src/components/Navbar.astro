@@ -1,0 +1,58 @@
+<ul>
+    <li class="name"><a href="/">aperezg.dev</a></li>
+    <li><a href="/#about-me">Sobre mi</a></li>
+    <li><a href="/#experience">Experiencia</a></li>
+    <li><a href="/#projects">Proyectos</a></li>
+    <li><a href="/#technologies">Tecnologías</a></li>
+    <li><a href="/#posts">Post recientes</a></li>
+    <li><a href="/blog">Blog</a></li>
+</ul>
+
+<style>
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    ul {
+        list-style: none;
+        display: flex;
+        gap: 16px;
+        justify-content: flex-end;
+        padding: 10px 32px;
+        width: 75%;
+        margin: 0 auto;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        align-items: center;
+        position: sticky;
+        top: 0;
+    }
+
+    @media (max-width: 600px) {
+        li:not(.name) {
+            display: none;
+        }
+
+        ul {
+            position: static;
+        }
+    }
+
+    .name {
+        margin-right: auto;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    li {
+        cursor: pointer;
+        transition: color 0.3s ease;
+        justify-self: flex-end;
+    }
+
+    li:hover {
+        color: black;
+    }
+</style>

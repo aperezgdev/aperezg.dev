@@ -1,16 +1,27 @@
 ---
-
+import MainLayout from "../layout/MainLayout.astro";
+import AboutMe from "../components/sections/AboutMe.astro";
+import Experience from "../components/sections/Experience.astro";
+import Projects from "../components/sections/Projects.astro";
+import Technologies from "../components/sections/Technologies.astro";
+import Posts from "../components/sections/Posts.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout>
+    <header>
+        <h1>Hola, soy <span>Alex Perez Garcia</span></h1>
+        <h3>Backend Developer</h3>
+    </header>
+    <AboutMe />
+    <Experience />
+    <Projects />
+    <Technologies />
+    <Posts />
+</MainLayout>
+
+<style>
+    header {
+        text-align: center;
+        margin: 4rem 0 2rem 0;
+    }
+</style>

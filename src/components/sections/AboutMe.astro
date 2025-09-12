@@ -1,0 +1,48 @@
+---
+import GithubIcon from "../icons/GithubIcon.astro";
+import Section from "./Section.astro";
+import LinkedInIcon from "../icons/LinkedInIcon.astro";
+---
+
+<Section id="about-me" title="Sobre mí">
+    <p>
+        Soy desarrollador backend con 3+ años de experiencia en la creación de
+        aplicaciones web robustas y escalables. Me especializo en Java con
+        Spring.
+    </p>
+    <p>
+        En mi tiempo libre experimento con distintas herramientas, lo que me
+        permite seguir aprendiendo y expandiendo mis habilidades técnicas.
+        Typescript y me gusta cacharrear en Golang.
+    </p>
+    <p class="socials">
+        <a
+            href="https://www.github.com/aperezgdev"
+            target="blank"
+            aria-label="GitHub"
+        >
+            <GithubIcon width="32px" />
+        </a>
+        <a
+            href="https://www.linkedin.com/in/aperezgdev"
+            target="blank"
+            aria-label="LinkedIn"
+        >
+            <LinkedInIcon width="32px" />
+        </a>
+    </p>
+</Section>
+
+<style>
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    .socials {
+        display: flex;
+        gap: 16px;
+        margin-top: 16px;
+    }
+</style>

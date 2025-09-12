@@ -1,0 +1,25 @@
+---
+import Section from "./Section.astro";
+import ProjectCard from "../ProjectCard.astro";
+---
+
+<Section id="projects" title="Proyectos">
+    <p>Aquí hay algunos de mis proyectos destacados:</p>
+    <ul>
+        <li>
+            <ProjectCard
+                title="projeclyze.dev"
+                description="Una plataforma para gestionar y analizar proyectos de desarrollo de software, con funcionalidades de seguimiento de tareas, colaboración en equipo y generación de informes."
+                working_on={true}
+            />
+        </li>
+        <li>
+            <ProjectCard
+                title="Porfolio Personal"
+                description="Mi sitio web personal donde comparto mi experiencia, proyectos y blog técnico donde cuento mis aprendizajes."
+                image="/porfolio-capture.webp"
+                working_on={false}
+            />
+        </li>
+    </ul>
+</Section>

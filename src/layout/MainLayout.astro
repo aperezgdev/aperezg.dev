@@ -1,0 +1,70 @@
+---
+import Navbar from "../components/Navbar.astro";
+const { title } = Astro.props;
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+            body {
+                margin: 0;
+                font-family: "Roboto", sans-serif;
+                background: #f5f5f5;
+                color: #333;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            main {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+        </style>
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title ?? "aperezg.dev"}</title>
+    </head>
+    <body>
+        <Navbar />
+        <main>
+            <slot />
+        </main>
+    </body>
+</html>
+
+<style>
+    span {
+        color: gray;
+        animation: colorChange 3s infinite;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        margin-top: -0.5rem;
+        color: #555;
+    }
+
+    @keyframes colorChange {
+        0% {
+            color: gray;
+        }
+        50% {
+            color: black;
+        }
+        100% {
+            color: gray;
+        }
+    }
+</style>

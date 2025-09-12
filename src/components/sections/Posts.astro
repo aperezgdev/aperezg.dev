@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import PostCard from "../PostCard.astro";
+import Section from "./Section.astro";
+
+const posts = await getCollection("blog");
+---
+
+<Section id="posts" title="Posts recientes">
+    <div id="posts-list">
+        {
+            posts
+                .slice(0, 4)
+                .map((post) => (
+                    <PostCard
+                        id={post.data.id}
+                        title={post.data.title}
+                        description={post.data.description}
+                        publishedDate={post.data.publishedDate}
+                    />
+                ))
+        }
+    </div>
+</Section>
+
+<style>
+    #posts-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 15rem;
+        gap: 24px;
+    }
+
+    @media (max-width: 500px) {
+        #posts-list {
+            grid-template-columns: auto;
+        }
+    }
+</style>
