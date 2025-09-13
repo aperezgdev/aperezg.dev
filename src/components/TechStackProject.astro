@@ -1,0 +1,26 @@
+---
+const { technology, style } = Astro.props;
+---
+
+<div class="tech-stack-project" style={style}>
+    <slot />
+    <span>{technology}</span>
+</div>
+
+<style>
+    .tech-stack-project {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        border: 1px solid #e0e0e0;
+        width: fit-content;
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+
+    .tech-stack-project span {
+        font-weight: 500;
+    }
+</style>

@@ -1,25 +1,49 @@
 ---
 import Section from "./Section.astro";
 import ProjectCard from "../ProjectCard.astro";
+import AstroIcon from "../icons/AstroIcon.astro";
+import GolangIcon from "../icons/GolangIcon.astro";
+import TechStackProject from "../TechStackProject.astro";
 ---
 
 <Section id="projects" title="Proyectos">
     <p>Aquí hay algunos de mis proyectos destacados:</p>
-    <ul>
-        <li>
-            <ProjectCard
-                title="projeclyze.dev"
-                description="Una plataforma para gestionar y analizar proyectos de desarrollo de software, con funcionalidades de seguimiento de tareas, colaboración en equipo y generación de informes."
-                working_on={true}
-            />
-        </li>
-        <li>
-            <ProjectCard
-                title="Porfolio Personal"
-                description="Mi sitio web personal donde comparto mi experiencia, proyectos y blog técnico donde cuento mis aprendizajes."
-                image="/porfolio-capture.webp"
-                working_on={false}
-            />
-        </li>
-    </ul>
+    <div>
+        <ProjectCard
+            title="projeclyze.dev"
+            description="Una plataforma para gestionar y analizar proyectos de desarrollo de software, con funcionalidades de seguimiento de tareas, colaboración en equipo y generación de informes."
+            working_on={true}
+        >
+            <TechStackProject slot="tech-stack" technology="Golang">
+                <GolangIcon width="18px" height="18px" />
+            </TechStackProject>
+        </ProjectCard>
+        <ProjectCard
+            title="Porfolio Personal"
+            description="Mi sitio web personal donde comparto mi experiencia, proyectos y blog técnico donde cuento mis aprendizajes. Construido con Astro y Tailwind CSS."
+            image="/porfolio-capture.webp"
+            working_on={false}
+            project_url="https://www.aperezg.dev"
+            github_url="https://www.github.com/aperezgdev/aperezg.dev"
+        >
+            <TechStackProject slot="tech-stack" technology="Astro">
+                <AstroIcon width="18px" height="18px" />
+            </TechStackProject>
+        </ProjectCard>
+    </div>
 </Section>
+
+<style>
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #333;
+        margin-bottom: 16px;
+    }
+
+    div {
+        flex-direction: column;
+        display: flex;
+        gap: 16px;
+    }
+</style>

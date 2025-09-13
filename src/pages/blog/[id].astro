@@ -18,15 +18,17 @@ const { Content } = await render(post);
 ---
 
 <PostLayout title={title}>
-    <a href="/#posts">
-        <LeftArrowIcon style="width:40px; height:40px;" />
-    </a>
-    <div id="title">
-        <h2>{title}</h2>
-        <span id="time-to-read">{estimatedTimeToRead}</span>
+    <div id="post-container">
+        <a href="/#posts">
+            <LeftArrowIcon style="width:40px; height:40px;" />
+        </a>
+        <div id="title">
+            <h2>{title}</h2>
+            <span id="time-to-read">{estimatedTimeToRead}</span>
+        </div>
+        <span id="date-published">{publishedDate}</span>
+        <Content />
     </div>
-    <span id="date-published">{publishedDate}</span>
-    <Content />
 </PostLayout>
 
 <style>
@@ -67,5 +69,10 @@ const { Content } = await render(post);
     a:hover {
         background-color: #dfdfdf;
         transition: 0.5s;
+    }
+
+    #post-container {
+        margin: 10px 0;
+        padding: 0 20px;
     }
 </style>

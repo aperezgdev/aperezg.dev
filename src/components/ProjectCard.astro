@@ -1,9 +1,12 @@
 ---
-const { title, description, image, working_on } = Astro.props;
+import LeftArrowIcon from "./icons/LeftArrowIcon.astro";
+import GithubIcon from "./icons/GithubIcon.astro";
+
+const { title, description, image, working_on, project_url, github_url } =
+    Astro.props;
 ---
 
 <article>
-    <h3>{title}</h3>
     <div class="project-card">
         {
             working_on ? (
@@ -18,14 +21,105 @@ const { title, description, image, working_on } = Astro.props;
                 />
             )
         }
-        <p>{description}</p>
+        <div class="project-details">
+            <h3>{title}</h3>
+            <div>
+                <slot name="tech-stack" />
+            </div>
+            <p>{description}</p>
+            <div class="links">
+                {
+                    project_url && (
+                        <a
+                            href={project_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="link-button"
+                        >
+                            <LeftArrowIcon style="width: 16px; height: 16px; transform: rotate(180deg);" />
+                            Ver Proyecto
+                        </a>
+                    )
+                }
+                {
+                    github_url && (
+                        <a
+                            href={github_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="link-button"
+                        >
+                            <GithubIcon style="width: 16px; height: 16px;" />
+                            GitHub
+                        </a>
+                    )
+                }
+            </div>
+        </div>
     </div>
 </article>
 
 <style>
+    h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #222;
+    }
     .project-card {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+        .project-card {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .links {
+        display: flex;
+        gap: 12px;
+        flex-direction: row;
+        margin-top: 12px;
+    }
+
+    .link-button {
+        background-color: #f0f0f0;
+        color: #333;
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        text-align: center;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid #e0e0e0;
+    }
+
+    .project-details {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .link-button:hover {
+        background-color: #e0e0e0;
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 600px) {
+        .links {
+            flex-direction: row;
+            gap: 8px;
+        }
+
+        .link-button {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
     }
 </style>
