@@ -6,8 +6,9 @@
     <li><a href="/#posts">Posts</a></li>
 </ul>
 
-<script>
+<script is:inline>
     document.addEventListener("DOMContentLoaded", () => {
+        console.log("Navbar script loaded");
         const navLinks = Array.from(
             document.querySelectorAll('nav a[href^="/#"], ul a[href^="/#"]'),
         );
