@@ -9,7 +9,7 @@ const { id, title } = Astro.props;
 
 <style>
     section {
-        margin: 10px 0;
+        margin-top: 4rem;
         padding: 0 20px;
     }
 
@@ -17,13 +17,6 @@ const { id, title } = Astro.props;
         font-size: 1.8rem;
         margin-bottom: 16px;
         border-bottom: 2px solid #ccc;
-        padding-bottom: 8px;
-    }
-
-    p {
-        font-size: 1rem;
-        line-height: 1.6;
-        color: #333;
     }
 
     ul {
@@ -34,6 +27,14 @@ const { id, title } = Astro.props;
     li {
         margin-bottom: 8px;
         font-size: 1rem;
+        color: #333;
+    }
+</style>
+
+<style is:inline>
+    p {
+        font-size: 1.2rem;
+        line-height: 1.6;
         color: #333;
     }
 </style>
