@@ -7,7 +7,9 @@
 </ul>
 
 <script is:inline>
+    console.log("loading script....");
     window.addEventListener("load", () => {
+        console.log("window loaded");
         console.log("Navbar script loaded");
         const navLinks = Array.from(
             document.querySelectorAll('nav a[href^="/#"], ul a[href^="/#"]'),
