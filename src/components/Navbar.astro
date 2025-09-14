@@ -6,7 +6,7 @@
     <li><a href="/#posts">Posts</a></li>
 </ul>
 
-<script>
+<script is:inline>
     window.addEventListener("load", () => {
         console.log("Navbar script loaded");
         const navLinks = Array.from(
@@ -40,7 +40,7 @@
             },
             {
                 root: null,
-                rootMargin: "0px 0px -40% 0px",
+                rootMargin: "0px 0px -35% 0px",
                 threshold: 0.1,
             },
         );
