@@ -1,0 +1,22 @@
+---
+import ProjectLink from "./ProjectLink.astro";
+import LeftArrowIcon from "./icons/LeftArrowIcon.astro";
+
+const { href } = Astro.props;
+---
+
+<ProjectLink
+    href={href}
+    style={`display: flex; align-items: center; gap: 8px; ${href ? "background: #3b82f6; color: white;" : "cursor: not-allowed; background: #555; color: white; transform: none;"};`}
+>
+    {
+        href ? (
+            <>
+                <LeftArrowIcon style="width: 16px; height: 16px; transform: rotate(180deg);" />
+                <span>Ver Proyecto</span>
+            </>
+        ) : (
+            <span>Próximamente</span>
+        )
+    }
+</ProjectLink>

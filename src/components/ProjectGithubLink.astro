@@ -1,0 +1,12 @@
+---
+import ProjectLink from "./ProjectLink.astro";
+import GithubIcon from "./icons/GithubIcon.astro";
+---
+
+<ProjectLink
+    {...Astro.props}
+    style="display: flex; align-items: center; gap: 8px;"
+>
+    <GithubIcon style="width: 20px; height: 20px;" />
+    <span>GitHub</span>
+</ProjectLink>
