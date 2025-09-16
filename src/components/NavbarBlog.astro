@@ -1,15 +1,61 @@
 ---
 import LeftArrowIcon from "./icons/LeftArrowIcon.astro";
 import Navbar from "./Navbar.astro";
+import LanguageSelector from "./LanguageSelector.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const currentLocale = Astro.locals.lang;
+
+const t = Astro.locals.t.nav;
 ---
 
 <Navbar>
-    <li class="name"><a href="/">aperezg.dev</a></li>
+    <li class="name">
+        <a href={getRelativeLocaleUrl(currentLocale, "/")}>aperezg.dev</a>
+    </li>
     <li>
-        <a id="navbar-blog" class="active" href="/blog"
-            >Blog <LeftArrowIcon
-                style="width: 20px; transform: rotate(180deg);"
-            />
+        <a
+            id="navbar-blog"
+            class="active"
+            href={getRelativeLocaleUrl(currentLocale, "/blog")}
+            >{t.blog}
+            <LeftArrowIcon style="width: 20px; transform: rotate(180deg);" />
         </a>
     </li>
+    <li>
+        <LanguageSelector class="language-selector-container" />
+    </li>
 </Navbar>
+
+<style>
+    a {
+        text-decoration: none;
+        color: inherit;
+        padding: 6px 8px;
+        border-radius: 6px;
+    }
+
+    #navbar-blog {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    a.active {
+        background-color: #3b82f6;
+        color: white;
+        transition: 0.3s;
+    }
+
+    .name {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    li {
+        cursor: pointer;
+        transition: color 0.3s ease;
+        justify-self: flex-end;
+        font-size: 1rem;
+    }
+</style>

@@ -3,6 +3,8 @@ import ProjectLink from "./ProjectLink.astro";
 import LeftArrowIcon from "./icons/LeftArrowIcon.astro";
 
 const { href } = Astro.props;
+
+const t = Astro.locals.t.home.projects.buttons;
 ---
 
 <ProjectLink
@@ -13,10 +15,10 @@ const { href } = Astro.props;
         href ? (
             <>
                 <LeftArrowIcon style="width: 16px; height: 16px; transform: rotate(180deg);" />
-                <span>Ver Proyecto</span>
+                <span>{t.viewProject}</span>
             </>
         ) : (
-            <span>Próximamente</span>
+            <span>{t.commingSoon}</span>
         )
     }
 </ProjectLink>

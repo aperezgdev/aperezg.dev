@@ -1,64 +1,109 @@
 ---
 import LeftArrowIcon from "./icons/LeftArrowIcon.astro";
 import Navbar from "./Navbar.astro";
+import LanguageSelector from "./LanguageSelector.astro";
+
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const currentLocale = Astro.locals.lang;
+const t = Astro.locals.t.nav;
 ---
 
 <script is:inline>
     window.addEventListener("load", () => {
         const navLinks = Array.from(
-            document.querySelectorAll('nav a[href^="/#"], ul a[href^="/#"]'),
+            document.querySelectorAll('#navbar a[href*="#"]'),
+        ).filter((link) => {
+            const href = link.getAttribute("href");
+            return href && href.includes("#") && !href.endsWith("#");
+        });
+
+        console.log(
+            "NavLinks encontrados:",
+            navLinks.length,
+            navLinks.map((l) => l.getAttribute("href")),
         );
-        const sectionIds = navLinks.map((link) =>
-            link.getAttribute("href").replace("/#", ""),
-        );
+
+        const sectionIds = navLinks
+            .map((link) => {
+                const href = link.getAttribute("href");
+                return href.split("#")[1];
+            })
+            .filter(Boolean);
+
         const sections = sectionIds
             .map((id) => document.getElementById(id))
             .filter(Boolean);
 
-        if (sections.length === 0) return;
+        console.log(
+            "Sections encontradas:",
+            sections.length,
+            sections.map((s) => s.id),
+        );
+
+        if (sections.length === 0) {
+            console.warn("No se encontraron secciones para observar");
+            return;
+        }
 
         let observer;
+        let currentActiveSection = null;
 
         function createObserver() {
-            // Disconnect previous observer if it exists
             if (observer) {
                 observer.disconnect();
             }
 
-            // Adjust settings based on screen size for better responsiveness
             const screenWidth = window.innerWidth;
             let rootMargin, threshold;
 
             if (screenWidth <= 700) {
-                // Mobile screens
                 rootMargin = "0px 0px -30% 0px";
                 threshold = 0.2;
             } else if (screenWidth <= 1400) {
-                // Medium to large screens
                 rootMargin = "0px 0px -45% 0px";
                 threshold = 0.1;
             } else {
-                // Very large screens (> 1400px)
                 rootMargin = "0px 0px -60% 0px";
                 threshold = 0.2;
             }
 
             observer = new IntersectionObserver(
                 (entries) => {
+                    let visibleSections = [];
+
                     entries.forEach((entry) => {
-                        const id = entry.target.id;
-                        const link = navLinks.find(
-                            (a) => a.getAttribute("href") === `/#${id}`,
-                        );
-                        if (link) {
-                            if (entry.isIntersecting) {
-                                navLinks.forEach((a) =>
-                                    a.classList.remove("active"),
-                                );
-                                link.classList.add("active");
-                            }
+                        if (entry.isIntersecting) {
+                            visibleSections.push(entry.target.id);
                         }
                     });
+
+                    if (visibleSections.length > 0) {
+                        const activeSection = visibleSections[0];
+
+                        if (currentActiveSection !== activeSection) {
+                            console.log(
+                                "Cambiando sección activa a:",
+                                activeSection,
+                            );
+
+                            navLinks.forEach((a) =>
+                                a.classList.remove("active"),
+                            );
+
+                            const activeLink = navLinks.find((a) => {
+                                const href = a.getAttribute("href");
+                                return (
+                                    href && href.split("#")[1] === activeSection
+                                );
+                            });
+
+                            if (activeLink) {
+                                activeLink.classList.add("active");
+                                currentActiveSection = activeSection;
+                            }
+                        }
+                    }
                 },
                 {
                     root: null,
@@ -70,33 +115,54 @@ import Navbar from "./Navbar.astro";
             sections.forEach((section) => observer.observe(section));
         }
 
-        // Create initial observer
         createObserver();
 
-        // Recreate observer on window resize to adjust for different screen sizes
         let resizeTimeout;
         window.addEventListener("resize", () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(createObserver, 100);
         });
+
+        setTimeout(() => {
+            if (window.scrollY < 100 && navLinks.length > 0) {
+                navLinks[0].classList.add("active");
+                currentActiveSection = navLinks[0]
+                    .getAttribute("href")
+                    .split("#")[1];
+            }
+        }, 100);
     });
 </script>
 
 <Navbar>
-    <li class="name"><a href="/">aperezg.dev</a></li>
+    <li class="name">
+        <a href={getRelativeLocaleUrl(currentLocale, "/")}>aperezg.dev</a>
+    </li>
     <li>
         <ul>
-            <li><a href="/#about-me">Sobre mi</a></li>
-            <li><a href="/#experience">Experiencia</a></li>
-            <li><a href="/#projects">Proyectos</a></li>
+            <li>
+                <a href="#about-me">{t.about}</a>
+            </li>
+            <li>
+                <a href="#experience">{t.experience}</a>
+            </li>
+            <li>
+                <a href="#projects">{t.projects}</a>
+            </li>
+            <li>
+                <a
+                    id="navbar-blog"
+                    href={getRelativeLocaleUrl(currentLocale, "/blog")}
+                    >{t.blog}
+                    <LeftArrowIcon
+                        style="width: 20px; transform: rotate(180deg);"
+                    />
+                </a>
+            </li>
         </ul>
     </li>
     <li>
-        <a id="navbar-blog" href="/blog"
-            >Blog <LeftArrowIcon
-                style="width: 20px; transform: rotate(180deg);"
-            />
-        </a>
+        <LanguageSelector class="language-selector-container" />
     </li>
 </Navbar>
 
@@ -105,5 +171,49 @@ import Navbar from "./Navbar.astro";
         .name {
             display: none;
         }
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        padding: 6px 8px;
+        border-radius: 6px;
+    }
+
+    #navbar-blog {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .name {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    a.active {
+        background-color: #3b82f6;
+        color: white;
+        transition: 0.3s;
+    }
+
+    ul {
+        list-style: none;
+        display: flex;
+        gap: 12px;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+    }
+
+    li {
+        cursor: pointer;
+        transition: color 0.3s ease;
+        justify-self: flex-end;
+        font-size: 1rem;
+    }
+
+    .language-selector-container {
+        margin-left: auto;
     }
 </style>

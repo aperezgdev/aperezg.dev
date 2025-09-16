@@ -4,14 +4,19 @@ import PostCard from "../PostCard.astro";
 import Section from "./Section.astro";
 
 const posts = await getCollection("blog");
-console.log(posts);
+
+const t = Astro.locals.t.home.posts;
+
+const postsByLang = posts.filter(
+    (post) => post.data.language === Astro.locals.lang,
+);
 ---
 
-<Section id="posts" title="Posts recientes">
+<Section id="posts" title={t.title}>
     <div id="posts-list">
         {
-            posts.length ? (
-                posts
+            postsByLang.length ? (
+                postsByLang
                     .slice(0, 4)
                     .map((post) => (
                         <PostCard
@@ -22,7 +27,7 @@ console.log(posts);
                         />
                     ))
             ) : (
-                <p>No hay posts disponibles.</p>
+                <p>{t.noPosts}</p>
             )
         }
     </div>

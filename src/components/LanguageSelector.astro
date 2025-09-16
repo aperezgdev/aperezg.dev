@@ -1,0 +1,59 @@
+---
+const currentLang = Astro.locals.lang;
+const currentPath = Astro.url.pathname;
+
+let pathWithoutLang = currentPath.replace(/^\/(en|es)/, "") || "/";
+
+if (pathWithoutLang === "/") {
+    pathWithoutLang = "/";
+} else if (
+    pathWithoutLang.startsWith("/blog") &&
+    pathWithoutLang !== "/blog" &&
+    pathWithoutLang !== "/blog/"
+) {
+    pathWithoutLang = "/blog";
+} else if (!pathWithoutLang.startsWith("/")) {
+    pathWithoutLang = "/" + pathWithoutLang;
+}
+
+const esUrl = `/es${pathWithoutLang}`;
+const enUrl = `/en${pathWithoutLang}`;
+---
+
+<div class="language-selector">
+    <a
+        href={esUrl}
+        class={currentLang === "es" ? "active" : ""}
+        title="Español"
+        aria-label="Cambiar a español"
+    >
+        ES
+    </a>
+    <span class="separator">|</span>
+    <a
+        href={enUrl}
+        class={currentLang === "en" ? "active" : ""}
+        title="English"
+        aria-label="Switch to English"
+    >
+        EN
+    </a>
+</div>
+
+<style>
+    a {
+        text-decoration: none;
+        color: #555;
+        font-weight: bold;
+        margin: 0 8px;
+        transition: color 0.3s;
+    }
+
+    .active {
+        color: #3b82f6;
+    }
+
+    a:hover {
+        color: #1e40af;
+    }
+</style>

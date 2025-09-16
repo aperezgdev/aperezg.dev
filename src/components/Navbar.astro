@@ -6,26 +6,7 @@ import LeftArrowIcon from "./icons/LeftArrowIcon.astro";
     <slot />
 </ul>
 
-<style is:inline>
-    a {
-        text-decoration: none;
-        color: inherit;
-        padding: 6px 8px;
-        border-radius: 6px;
-    }
-
-    #navbar-blog {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-    }
-
-    a.active {
-        background-color: #3b82f6;
-        color: white;
-        transition: 0.3s;
-    }
-
+<style>
     #navbar {
         display: flex;
         gap: 9px;
@@ -34,7 +15,6 @@ import LeftArrowIcon from "./icons/LeftArrowIcon.astro";
         width: 75%;
         max-width: 1200px;
         margin: 0 auto;
-
         min-width: 75%;
         font-weight: 600;
         background: rgba(245, 245, 245, 0.9);
@@ -55,26 +35,10 @@ import LeftArrowIcon from "./icons/LeftArrowIcon.astro";
     }
 
     @media (max-width: 700px) {
-        li {
-            font-size: 0.8rem;
-        }
-
         #navbar {
             display: flex;
             padding: 12px 16px;
             width: fit-content;
         }
-    }
-
-    .name {
-        font-size: 18px;
-        font-weight: 700;
-    }
-
-    li {
-        cursor: pointer;
-        transition: color 0.3s ease;
-        justify-self: flex-end;
-        font-size: 1rem;
     }
 </style>

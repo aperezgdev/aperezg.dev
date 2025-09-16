@@ -2,10 +2,10 @@
 import NavbarPorfolio from "../components/NavbarPorfolio.astro";
 import Analytics from "@vercel/analytics/astro";
 import "@fontsource/roboto";
-const { title } = Astro.props;
+const { title, lang, translation } = Astro.props;
 ---
 
-<html lang="en">
+<html lang={lang}>
     <head>
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

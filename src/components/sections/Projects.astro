@@ -4,14 +4,16 @@ import ProjectCard from "../ProjectCard.astro";
 import AstroIcon from "../icons/AstroIcon.astro";
 import GolangIcon from "../icons/GolangIcon.astro";
 import TechStackProject from "../TechStackProject.astro";
+
+const t = Astro.locals.t.home.projects;
 ---
 
-<Section id="projects" title="Proyectos">
-    <p>Aquí hay algunos de mis proyectos destacados:</p>
+<Section id="projects" title={t.title}>
+    <p>{t.title}</p>
     <div>
         <ProjectCard
-            title="projeclyze.dev"
-            description="Una plataforma para gestionar y analizar proyectos de desarrollo de software, con funcionalidades de seguimiento de tareas, colaboración en equipo y generación de informes."
+            title={t.first.title}
+            description={t.first.param}
             working_on={true}
             github_url="https://github.com/aperezgdev/api-projeclyze"
         >
@@ -20,8 +22,8 @@ import TechStackProject from "../TechStackProject.astro";
             </TechStackProject>
         </ProjectCard>
         <ProjectCard
-            title="Porfolio Personal"
-            description="Mi sitio web personal donde comparto mi experiencia, proyectos y blog técnico donde cuento mis aprendizajes. Construido con Astro y Tailwind CSS."
+            title={t.second.title}
+            description={t.second.param}
             image="/porfolio-capture.webp"
             working_on={false}
             project_url="https://www.aperezg.dev"

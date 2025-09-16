@@ -1,17 +1,25 @@
 ---
-import PostLayout from "../../layout/PostLayout.astro";
+import PostLayout from "../../../layout/PostLayout.astro";
 import { getCollection } from "astro:content";
-import PostCard from "../../components/PostCard.astro";
-import Section from "../../components/sections/Section.astro";
+import PostCard from "../../../components/PostCard.astro";
+import Section from "../../../components/sections/Section.astro";
 
 const posts = await getCollection("blog");
+
+export const getStaticPaths = () => {
+    return [{ params: { lang: "en" } }, { params: { lang: "es" } }];
+};
+
+const postsByLang = posts.filter(
+    (post) => post.data.language === Astro.locals.lang,
+);
 ---
 
 <PostLayout>
     <Section id="posts" title="Blog">
         <div id="posts-list">
             {
-                posts.map((post) => (
+                postsByLang.map((post) => (
                     <PostCard
                         id={post.data.id}
                         title={post.data.title}

@@ -1,7 +1,8 @@
 ---
-id: hello-world
+id: hello-world-es
 title: "Hello, World!"
 description: "Mi primer post en mi blog personal."
+language: "es"
 publishedDate: "2024-06-15"
 estimatedTimeToRead: "1m"
 ---

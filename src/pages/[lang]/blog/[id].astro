@@ -1,25 +1,30 @@
 ---
 import { getCollection, render } from "astro:content";
-import PostLayout from "../../layout/PostLayout.astro";
-import LeftArrowIcon from "../../components/icons/LeftArrowIcon.astro";
+import PostLayout from "../../../layout/PostLayout.astro";
+import LeftArrowIcon from "../../../components/icons/LeftArrowIcon.astro";
 
 export async function getStaticPaths() {
     const posts = await getCollection("blog");
-    return posts.map((post) => ({
-        params: { id: post.data.id },
-        props: { post },
-    }));
+    const langs = ["en", "es"];
+
+    return langs.flatMap((lang) =>
+        posts.map((post) => ({
+            params: { lang, id: post.data.id },
+            props: { post },
+        })),
+    );
 }
 
 const { post } = Astro.props;
 const { title, publishedDate, estimatedTimeToRead } = (post as any).data;
 
+const lang = Astro.params.lang;
 const { Content } = await render(post);
 ---
 
 <PostLayout title={title}>
     <div id="post-container">
-        <a href="/#posts">
+        <a href={`/${lang}/#posts`}>
             <LeftArrowIcon style="width:40px; height:40px;" />
         </a>
         <div id="title">

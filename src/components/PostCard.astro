@@ -1,8 +1,9 @@
 ---
 const { title, id, description, publishedDate } = Astro.props;
+const lang = Astro.locals.lang;
 ---
 
-<a href=`blog/${id}`>
+<a href=`/${lang}/blog/${id}`>
     <article>
         <div>
             <h3>{title}</h3>

@@ -2,18 +2,16 @@
 import GithubIcon from "../icons/GithubIcon.astro";
 import Section from "./Section.astro";
 import LinkedInIcon from "../icons/LinkedInIcon.astro";
+
+const t = Astro.locals.t.home.about;
 ---
 
-<Section id="about-me" title="Sobre mí">
+<Section id="about-me" title={t.title}>
     <p>
-        Desarrollador backend con más de 3 años de experiencia en la creación de
-        aplicaciones web robustas y escalables. Me especializo en Java con
-        Spring.
+        {t.first.param}
     </p>
     <p>
-        En mi tiempo libre experimento con distintas herramientas, lo que me
-        permite seguir aprendiendo y expandiendo mis habilidades técnicas.
-        Actualmente estoy explorando Golang y TypeScript.
+        {t.second.param}
     </p>
     <p class="socials">
         <a

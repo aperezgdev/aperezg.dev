@@ -1,0 +1,74 @@
+---
+import MainLayout from "../../layout/MainLayout.astro";
+import AboutMe from "../../components/sections/AboutMe.astro";
+import Experience from "../../components/sections/Experience.astro";
+import Projects from "../../components/sections/Projects.astro";
+import Posts from "../../components/sections/Posts.astro";
+import { ui, type Language } from "../../i18n/ui";
+
+export const getStaticPaths = () => {
+    return [{ params: { lang: "en" } }, { params: { lang: "es" } }];
+};
+
+const t = Astro.locals.t.home;
+---
+
+<MainLayout>
+    <header>
+        <h1>{t.title} <span>Alex Perez Garcia</span></h1>
+        <h3>{t.subtitle}</h3>
+    </header>
+    <AboutMe />
+    <Experience />
+    <Projects />
+    <Posts />
+</MainLayout>
+
+<style>
+    header {
+        text-align: center;
+        padding: 0 20px;
+        margin: 4rem 0 2rem 0;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    span {
+        color: #3b82f6;
+        animation: colorChange 2s infinite ease-in-out;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        margin-top: -1.5rem;
+        color: #555;
+    }
+    span {
+        background: linear-gradient(
+            90deg,
+            #555,
+            #3b82f6,
+            #0000ff,
+            #ff00ff,
+            #ff0000
+        );
+        background-size: 300% 100%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: colorShift 5s linear infinite;
+    }
+
+    @keyframes colorShift {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+</style>
