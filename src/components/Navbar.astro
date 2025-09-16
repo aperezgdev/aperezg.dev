@@ -1,62 +1,23 @@
-<ul>
-    <li class="name"><a href="/">aperezg.dev</a></li>
-    <li><a class="active" href="/#about-me">Sobre mi</a></li>
-    <li><a href="/#experience">Experiencia</a></li>
-    <li><a href="/#projects">Proyectos</a></li>
-    <li><a href="/#posts">Posts</a></li>
+---
+import LeftArrowIcon from "./icons/LeftArrowIcon.astro";
+---
+
+<ul id="navbar">
+    <slot />
 </ul>
 
-<script is:inline>
-    console.log("loading script....");
-    window.addEventListener("load", () => {
-        console.log("window loaded");
-        console.log("Navbar script loaded");
-        const navLinks = Array.from(
-            document.querySelectorAll('nav a[href^="/#"], ul a[href^="/#"]'),
-        );
-        const sectionIds = navLinks.map((link) =>
-            link.getAttribute("href").replace("/#", ""),
-        );
-        const sections = sectionIds
-            .map((id) => document.getElementById(id))
-            .filter(Boolean);
-
-        if (sections.length === 0) return;
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const id = entry.target.id;
-                    const link = navLinks.find(
-                        (a) => a.getAttribute("href") === `/#${id}`,
-                    );
-                    if (link) {
-                        if (entry.isIntersecting) {
-                            navLinks.forEach((a) =>
-                                a.classList.remove("active"),
-                            );
-                            link.classList.add("active");
-                        }
-                    }
-                });
-            },
-            {
-                root: null,
-                rootMargin: "0px 0px -35% 0px",
-                threshold: 0.1,
-            },
-        );
-
-        sections.forEach((section) => observer.observe(section));
-    });
-</script>
-
-<style>
+<style is:inline>
     a {
         text-decoration: none;
         color: inherit;
         padding: 6px 8px;
         border-radius: 6px;
+    }
+
+    #navbar-blog {
+        display: flex;
+        align-items: center;
+        gap: 4px;
     }
 
     a.active {
@@ -65,15 +26,16 @@
         transition: 0.3s;
     }
 
-    ul {
-        list-style: none;
+    #navbar {
         display: flex;
         gap: 9px;
-        justify-content: center;
+        justify-content: space-between;
         padding: 16px 24px;
         width: 75%;
         max-width: 1200px;
         margin: 0 auto;
+
+        min-width: 75%;
         font-weight: 600;
         background: rgba(245, 245, 245, 0.9);
         font-size: 14px;
@@ -84,27 +46,27 @@
         box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     }
 
-    @media (max-width: 700px) {
-        .name {
-            display: none;
-            margin: auto auto;
-            width: fit-content;
-        }
+    ul {
+        list-style: none;
+        display: flex;
+        gap: 12px;
+        padding: 0;
+        margin: 0;
+    }
 
+    @media (max-width: 700px) {
         li {
             font-size: 0.8rem;
         }
 
-        ul {
+        #navbar {
             display: flex;
             padding: 12px 16px;
             width: fit-content;
-            justify-content: center;
         }
     }
 
     .name {
-        margin-right: auto;
         font-size: 18px;
         font-weight: 700;
     }

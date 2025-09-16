@@ -1,0 +1,109 @@
+---
+import LeftArrowIcon from "./icons/LeftArrowIcon.astro";
+import Navbar from "./Navbar.astro";
+---
+
+<script is:inline>
+    window.addEventListener("load", () => {
+        const navLinks = Array.from(
+            document.querySelectorAll('nav a[href^="/#"], ul a[href^="/#"]'),
+        );
+        const sectionIds = navLinks.map((link) =>
+            link.getAttribute("href").replace("/#", ""),
+        );
+        const sections = sectionIds
+            .map((id) => document.getElementById(id))
+            .filter(Boolean);
+
+        if (sections.length === 0) return;
+
+        let observer;
+
+        function createObserver() {
+            // Disconnect previous observer if it exists
+            if (observer) {
+                observer.disconnect();
+            }
+
+            // Adjust settings based on screen size for better responsiveness
+            const screenWidth = window.innerWidth;
+            let rootMargin, threshold;
+
+            if (screenWidth <= 700) {
+                // Mobile screens
+                rootMargin = "0px 0px -30% 0px";
+                threshold = 0.2;
+            } else if (screenWidth <= 1400) {
+                // Medium to large screens
+                rootMargin = "0px 0px -45% 0px";
+                threshold = 0.1;
+            } else {
+                // Very large screens (> 1400px)
+                rootMargin = "0px 0px -60% 0px";
+                threshold = 0.2;
+            }
+
+            observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        const id = entry.target.id;
+                        const link = navLinks.find(
+                            (a) => a.getAttribute("href") === `/#${id}`,
+                        );
+                        if (link) {
+                            if (entry.isIntersecting) {
+                                navLinks.forEach((a) =>
+                                    a.classList.remove("active"),
+                                );
+                                link.classList.add("active");
+                            }
+                        }
+                    });
+                },
+                {
+                    root: null,
+                    rootMargin: rootMargin,
+                    threshold: threshold,
+                },
+            );
+
+            sections.forEach((section) => observer.observe(section));
+        }
+
+        // Create initial observer
+        createObserver();
+
+        // Recreate observer on window resize to adjust for different screen sizes
+        let resizeTimeout;
+        window.addEventListener("resize", () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(createObserver, 100);
+        });
+    });
+</script>
+
+<Navbar>
+    <li class="name"><a href="/">aperezg.dev</a></li>
+    <li>
+        <ul>
+            <li><a href="/#about-me">Sobre mi</a></li>
+            <li><a href="/#experience">Experiencia</a></li>
+            <li><a href="/#projects">Proyectos</a></li>
+        </ul>
+    </li>
+    <li>
+        <a id="navbar-blog" href="/blog"
+            >Blog <LeftArrowIcon
+                style="width: 20px; transform: rotate(180deg);"
+            />
+        </a>
+    </li>
+</Navbar>
+
+<style>
+    @media (max-width: 700px) {
+        .name {
+            display: none;
+        }
+    }
+</style>

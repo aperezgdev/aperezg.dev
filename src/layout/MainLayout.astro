@@ -1,6 +1,7 @@
 ---
-import Navbar from "../components/Navbar.astro";
+import NavbarPorfolio from "../components/NavbarPorfolio.astro";
 import Analytics from "@vercel/analytics/astro";
+import "@fontsource/roboto";
 const { title } = Astro.props;
 ---
 
@@ -9,8 +10,6 @@ const { title } = Astro.props;
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <style>
-            @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-
             body {
                 margin: 0;
                 font-family: "Roboto", sans-serif;
@@ -35,10 +34,21 @@ const { title } = Astro.props;
         </style>
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
+        <meta name="author" content="Alex Perez Garcia" />
+        <meta
+            name="description"
+            content="Alex Perez Garcia's personal website and portfolio."
+        />
+        <meta
+            name="keywords"
+            content="Alex Perez Garcia, aperezg.dev, portfolio, developer, software engineer, projects, blog, backend developer, fullstack developer"
+        />
         <title>{title ?? "aperezg.dev"}</title>
     </head>
     <body>
-        <Navbar />
+        <slot name="navbar">
+            <NavbarPorfolio />
+        </slot>
         <main>
             <slot />
         </main>
@@ -47,6 +57,11 @@ const { title } = Astro.props;
 </html>
 
 <style>
+    main {
+        width: 100%;
+        min-height: 80vh;
+    }
+
     span {
         color: gray;
         animation: colorChange 3s infinite;

@@ -12,7 +12,7 @@ const { title, description, image, working_on, project_url, github_url } =
             working_on ? (
                 <div
                     class="project-image"
-                    style="width:100%; min-height: 200px; display:flex; align-items:center; justify-content:center; background-color:#f0f0f0; border-radius:8px; color:#888; font-style:italic;"
+                    style="width:100%; min-height: 200px; display:flex; align-items:center; justify-content:center; border-radius:8px; font-style:italic;"
                 >
                     En desarrollo...
                 </div>
@@ -43,6 +43,8 @@ const { title, description, image, working_on, project_url, github_url } =
     .project-image {
         object-fit: cover;
         height: 100%;
+        background-color: #f3f3f3;
+        color: #9999;
     }
 
     h3 {

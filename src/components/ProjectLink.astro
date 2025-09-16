@@ -1,19 +1,29 @@
 ---
 const { href, style } = Astro.props;
+const isDisabled = !href || href === "#";
 ---
 
-<a
-    href={href}
-    style={style}
-    target="_blank"
-    rel="noopener noreferrer"
-    class="link-button"
->
-    <slot />
-</a>
+{
+    isDisabled ? (
+        <span style={style} class="link-button disabled">
+            <slot />
+        </span>
+    ) : (
+        <a
+            href={href}
+            style={style}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="link-button"
+        >
+            <slot />
+        </a>
+    )
+}
 
 <style>
-    a {
+    a,
+    .disabled {
         background-color: #f0f0f0;
         color: #333;
         padding: 8px 16px;
@@ -28,13 +38,14 @@ const { href, style } = Astro.props;
         border: 1px solid #e0e0e0;
     }
 
-    a:hover {
+    .link-button:hover {
         background-color: #e0e0e0;
         transform: translateY(-1px);
     }
 
     @media (max-width: 600px) {
-        a {
+        a,
+        .disabled {
             width: 100%;
             font-size: 1.2rem;
             display: flex;

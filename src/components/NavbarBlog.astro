@@ -1,0 +1,15 @@
+---
+import LeftArrowIcon from "./icons/LeftArrowIcon.astro";
+import Navbar from "./Navbar.astro";
+---
+
+<Navbar>
+    <li class="name"><a href="/">aperezg.dev</a></li>
+    <li>
+        <a id="navbar-blog" class="active" href="/blog"
+            >Blog <LeftArrowIcon
+                style="width: 20px; transform: rotate(180deg);"
+            />
+        </a>
+    </li>
+</Navbar>

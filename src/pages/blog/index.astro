@@ -1,5 +1,5 @@
 ---
-import MainLayout from "../../layout/MainLayout.astro";
+import PostLayout from "../../layout/PostLayout.astro";
 import { getCollection } from "astro:content";
 import PostCard from "../../components/PostCard.astro";
 import Section from "../../components/sections/Section.astro";
@@ -7,7 +7,7 @@ import Section from "../../components/sections/Section.astro";
 const posts = await getCollection("blog");
 ---
 
-<MainLayout>
+<PostLayout>
     <Section id="posts" title="Blog">
         <div id="posts-list">
             {
@@ -22,7 +22,7 @@ const posts = await getCollection("blog");
             }
         </div>
     </Section>
-</MainLayout>
+</PostLayout>
 
 <style>
     #posts-list {
@@ -32,7 +32,7 @@ const posts = await getCollection("blog");
         gap: 24px;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 700px) {
         #posts-list {
             grid-template-columns: auto;
         }

@@ -1,7 +1,11 @@
 ---
 import MainLayout from "./MainLayout.astro";
+import NavbarBlog from "../components/NavbarBlog.astro";
+
+const { title } = Astro.props;
 ---
 
-<MainLayout title="aperezg.dev - blog">
+<MainLayout title={`aperezgdev - ${title}`}>
+    <NavbarBlog slot="navbar" />
     <slot />
 </MainLayout>

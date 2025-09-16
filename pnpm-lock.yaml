@@ -11,6 +11,9 @@ importers:
       '@astrojs/vercel':
         specifier: ^8.2.7
         version: 8.2.7(astro@5.8.2(@types/node@22.15.29)(rollup@4.41.1)(typescript@5.8.3))(rollup@4.41.1)
+      '@fontsource/roboto':
+        specifier: ^5.2.7
+        version: 5.2.7
       '@vercel/analytics':
         specifier: ^1.5.0
         version: 1.5.0
@@ -217,6 +220,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource/roboto@5.2.7':
+    resolution: {integrity: sha512-fca6Jtyxn6kPR51+TTTMCFm0FOhnKaLEYYiAQc8P/4iFCKoKGR0aX89QR4CfP+N64RPXJus64UxhJaVENnSM6Q==}
 
   '@img/sharp-darwin-arm64@0.33.5':
     resolution: {integrity: sha512-UT4p+iz/2H4twwAoLCqfA9UH5pI6DggwKEGuaPy7nCVQ8ZsiY5PIcrRvD1DzuY3qYL07NtIQcWnBSY/heikIFQ==}
@@ -1867,6 +1873,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.5':
     optional: true
+
+  '@fontsource/roboto@5.2.7': {}
 
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:
