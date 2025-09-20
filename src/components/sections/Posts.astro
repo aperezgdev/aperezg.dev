@@ -10,13 +10,19 @@ const t = Astro.locals.t.home.posts;
 const postsByLang = posts.filter(
     (post) => post.data.language === Astro.locals.lang,
 );
+
+const sortedPostsByDate = postsByLang.sort(
+    (a, b) =>
+        new Date(b.data.publishedDate).getTime() -
+        new Date(a.data.publishedDate).getTime(),
+);
 ---
 
 <Section id="posts" title={t.title}>
     <div id="posts-list">
         {
-            postsByLang.length ? (
-                postsByLang
+            sortedPostsByDate.length ? (
+                sortedPostsByDate
                     .slice(0, 4)
                     .map((post) => (
                         <PostCard
