@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+Disallow: /_astro/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.vscode/
+Disallow: /dist/
+
+Allow: /es/
+Allow: /en/
+
+Sitemap: https://aperezg.dev/sitemap-index.xml
+
+Crawl-delay: 1
