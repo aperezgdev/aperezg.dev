@@ -13,13 +13,19 @@ export const getStaticPaths = () => {
 const postsByLang = posts.filter(
     (post) => post.data.language === Astro.locals.lang,
 );
+
+const sortedPostsByDate = postsByLang.sort(
+    (a, b) =>
+        new Date(b.data.publishedDate).getTime() -
+        new Date(a.data.publishedDate).getTime(),
+);
 ---
 
 <PostLayout>
     <Section id="posts" title="Blog">
         <div id="posts-list">
             {
-                postsByLang.map((post) => (
+                sortedPostsByDate.map((post) => (
                     <PostCard
                         id={post.data.id}
                         title={post.data.title}
