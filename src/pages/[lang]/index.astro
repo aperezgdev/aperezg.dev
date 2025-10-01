@@ -12,10 +12,10 @@ export const getStaticPaths = () => {
 const t = Astro.locals.t.home;
 ---
 
-<MainLayout>
+<MainLayout lang={Astro.locals.lang} title="aperezgdev - Alex Perez Garcia">
   <header>
     <h1>{t.title} <span>Alex Perez Garcia</span></h1>
-    <h3>{t.subtitle}</h3>
+    <h2>{t.subtitle}</h2>
   </header>
   <AboutMe />
   <Experience />
@@ -35,7 +35,7 @@ const t = Astro.locals.t.home;
   }
 
   span {
-    color: #3b82f6;
+    color: #2e2eff;
     animation: colorChange 2s infinite ease-in-out;
   }
 
@@ -48,7 +48,7 @@ const t = Astro.locals.t.home;
     background: linear-gradient(
       90deg,
       #555,
-      #3b82f6,
+      #2e2eff,
       #0000ff,
       #ff00ff,
       #ff0000

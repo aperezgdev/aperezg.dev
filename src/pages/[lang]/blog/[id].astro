@@ -4,15 +4,15 @@ import PostLayout from "../../../layout/PostLayout.astro";
 import LeftArrowIcon from "../../../components/icons/LeftArrowIcon.astro";
 
 export async function getStaticPaths() {
-    const posts = await getCollection("blog");
-    const langs = ["en", "es"];
+  const posts = await getCollection("blog");
+  const langs = ["en", "es"];
 
-    return langs.flatMap((lang) =>
-        posts.map((post) => ({
-            params: { lang, id: post.data.id },
-            props: { post },
-        })),
-    );
+  return langs.flatMap((lang) =>
+    posts.map((post) => ({
+      params: { lang, id: post.data.id },
+      props: { post },
+    })),
+  );
 }
 
 const { post } = Astro.props;
@@ -23,61 +23,61 @@ const { Content } = await render(post);
 ---
 
 <PostLayout title={title}>
-    <div id="post-container">
-        <a href={`/${lang}/#posts`}>
-            <LeftArrowIcon style="width:40px; height:40px;" />
-        </a>
-        <div id="title">
-            <h2>{title}</h2>
-            <span id="time-to-read">{estimatedTimeToRead}</span>
-        </div>
-        <span id="date-published">{publishedDate}</span>
-        <Content />
+  <div id="post-container">
+    <a href={`/${lang}/#posts`}>
+      <LeftArrowIcon style="width:40px; height:40px;" />
+    </a>
+    <div id="title">
+      <h2>{title}</h2>
+      <span id="time-to-read">{estimatedTimeToRead}</span>
     </div>
+    <span id="date-published">{publishedDate}</span>
+    <Content />
+  </div>
 </PostLayout>
 
 <style>
-    h2 {
-        font-size: 2.5rem;
-        text-shadow:
-            0px 1px,
-            1px 0px,
-            1px 1px;
-        font-weight: bolder;
-    }
+  h2 {
+    font-size: 2.5rem;
+    text-shadow:
+      0px 1px,
+      1px 0px,
+      1px 1px;
+    font-weight: bolder;
+  }
 
-    #title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+  #title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    #date-published {
-        margin-top: -2rem;
-        font-weight: lighter;
-    }
+  #date-published {
+    margin-top: -2rem;
+    font-weight: lighter;
+  }
 
-    span {
-        color: #717171;
-    }
+  span {
+    color: #616161;
+  }
 
-    a {
-        color: black;
-        border-radius: 2rem;
-        display: flex;
-        width: fit-content;
-        align-self: start;
-        padding: 0.4rem;
-        margin: -0.4rem;
-    }
+  a {
+    color: black;
+    border-radius: 2rem;
+    display: flex;
+    width: fit-content;
+    align-self: start;
+    padding: 0.4rem;
+    margin: -0.4rem;
+  }
 
-    a:hover {
-        background-color: #dfdfdf;
-        transition: 0.5s;
-    }
+  a:hover {
+    background-color: #dfdfdf;
+    transition: 0.5s;
+  }
 
-    #post-container {
-        margin: 6rem 0;
-        padding: 0 20px;
-    }
+  #post-container {
+    margin: 6rem 0;
+    padding: 0 20px;
+  }
 </style>

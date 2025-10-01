@@ -6,6 +6,7 @@ import LanguageSelector from "./LanguageSelector.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
 
 const currentLocale = Astro.locals.lang;
+console.log("Current locale en NavbarPortfolio:", currentLocale);
 const t = Astro.locals.t.nav;
 ---
 
@@ -136,7 +137,7 @@ const t = Astro.locals.t.nav;
 
 <Navbar>
     <li class="name">
-        <a href={getRelativeLocaleUrl(currentLocale, "/")}>aperezg.dev</a>
+        <a href={`/${currentLocale}`}>aperezg.dev</a>
     </li>
     <li>
         <ul>
@@ -150,9 +151,7 @@ const t = Astro.locals.t.nav;
                 <a href="#projects">{t.projects}</a>
             </li>
             <li>
-                <a
-                    id="navbar-blog"
-                    href={getRelativeLocaleUrl(currentLocale, "/blog")}
+                <a id="navbar-blog" href={`/${currentLocale}/blog`}
                     >{t.blog}
                     <LeftArrowIcon
                         style="width: 20px; transform: rotate(180deg);"
@@ -196,7 +195,7 @@ const t = Astro.locals.t.nav;
     }
 
     a.active {
-        background-color: #3b82f6;
+        background-color: #2e2eff;
         color: white;
         transition: 0.3s;
     }
