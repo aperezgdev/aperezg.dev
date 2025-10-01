@@ -9,6 +9,10 @@ export const DefaultLanguage: Language = "es";
 
 export const ui = {
   es: {
+    seo: {
+      description:
+        "Soy Álex Pérez García. Este es mi portafolio y blog de un desarrollador backend. Explora mis proyectos, experiencia y artículos.",
+    },
     nav: {
       blog: "Blog",
       projects: "Proyectos",
@@ -70,6 +74,10 @@ export const ui = {
     },
   },
   en: {
+    seo: {
+      description:
+        "I'm Álex Pérez García. This is my portfolio and blog as a backend developer. Explore my projects, experience, and articles.",
+    },
     nav: {
       blog: "Blog",
       projects: "Projects",
