@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 
 import vercel from "@astrojs/vercel";
 import sitemap from "@astrojs/sitemap";
@@ -23,4 +23,13 @@ export default defineConfig({
     locales: ["en", "es"],
   },
   site: "https://aperezg.dev",
+  experimental: {
+    fonts: [
+      {
+        provider: fontProviders.fontsource(),
+        name: "Roboto",
+        cssVariable: "--font-roboto",
+      },
+    ],
+  },
 });

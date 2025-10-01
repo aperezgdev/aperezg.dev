@@ -23,7 +23,6 @@ export const onRequest = defineMiddleware((context, next) => {
   const urlLanguage = context.params.lang as Language | undefined;
 
   const lang = urlLanguage || browserLanguage || "es";
-  console.log(lang);
   context.locals.lang = lang;
   context.locals.t = ui[lang] || ui["es"];
 

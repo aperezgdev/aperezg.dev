@@ -3,220 +3,191 @@ import LeftArrowIcon from "./icons/LeftArrowIcon.astro";
 import Navbar from "./Navbar.astro";
 import LanguageSelector from "./LanguageSelector.astro";
 
-import { getRelativeLocaleUrl } from "astro:i18n";
-
 const currentLocale = Astro.locals.lang;
-console.log("Current locale en NavbarPortfolio:", currentLocale);
 const t = Astro.locals.t.nav;
 ---
 
-<script is:inline>
-    window.addEventListener("load", () => {
-        const navLinks = Array.from(
-            document.querySelectorAll('#navbar a[href*="#"]'),
-        ).filter((link) => {
-            const href = link.getAttribute("href");
-            return href && href.includes("#") && !href.endsWith("#");
-        });
-
-        console.log(
-            "NavLinks encontrados:",
-            navLinks.length,
-            navLinks.map((l) => l.getAttribute("href")),
-        );
-
-        const sectionIds = navLinks
-            .map((link) => {
-                const href = link.getAttribute("href");
-                return href.split("#")[1];
-            })
-            .filter(Boolean);
-
-        const sections = sectionIds
-            .map((id) => document.getElementById(id))
-            .filter(Boolean);
-
-        console.log(
-            "Sections encontradas:",
-            sections.length,
-            sections.map((s) => s.id),
-        );
-
-        if (sections.length === 0) {
-            console.warn("No se encontraron secciones para observar");
-            return;
-        }
-
-        let observer;
-        let currentActiveSection = null;
-
-        function createObserver() {
-            if (observer) {
-                observer.disconnect();
-            }
-
-            const screenWidth = window.innerWidth;
-            let rootMargin, threshold;
-
-            if (screenWidth <= 700) {
-                rootMargin = "0px 0px -30% 0px";
-                threshold = 0.2;
-            } else if (screenWidth <= 1400) {
-                rootMargin = "0px 0px -45% 0px";
-                threshold = 0.1;
-            } else {
-                rootMargin = "0px 0px -60% 0px";
-                threshold = 0.2;
-            }
-
-            observer = new IntersectionObserver(
-                (entries) => {
-                    let visibleSections = [];
-
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            visibleSections.push(entry.target.id);
-                        }
-                    });
-
-                    if (visibleSections.length > 0) {
-                        const activeSection = visibleSections[0];
-
-                        if (currentActiveSection !== activeSection) {
-                            console.log(
-                                "Cambiando sección activa a:",
-                                activeSection,
-                            );
-
-                            navLinks.forEach((a) =>
-                                a.classList.remove("active"),
-                            );
-
-                            const activeLink = navLinks.find((a) => {
-                                const href = a.getAttribute("href");
-                                return (
-                                    href && href.split("#")[1] === activeSection
-                                );
-                            });
-
-                            if (activeLink) {
-                                activeLink.classList.add("active");
-                                currentActiveSection = activeSection;
-                            }
-                        }
-                    }
-                },
-                {
-                    root: null,
-                    rootMargin: rootMargin,
-                    threshold: threshold,
-                },
-            );
-
-            sections.forEach((section) => observer.observe(section));
-        }
-
-        createObserver();
-
-        let resizeTimeout;
-        window.addEventListener("resize", () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(createObserver, 100);
-        });
-
-        setTimeout(() => {
-            if (window.scrollY < 100 && navLinks.length > 0) {
-                navLinks[0].classList.add("active");
-                currentActiveSection = navLinks[0]
-                    .getAttribute("href")
-                    .split("#")[1];
-            }
-        }, 100);
+<script is:inline defer>
+  window.addEventListener("load", () => {
+    const navLinks = Array.from(
+      document.querySelectorAll('#navbar a[href*="#"]'),
+    ).filter((link) => {
+      const href = link.getAttribute("href");
+      return href && href.includes("#") && !href.endsWith("#");
     });
+
+    const sectionIds = navLinks
+      .map((link) => {
+        const href = link.getAttribute("href");
+        return href.split("#")[1];
+      })
+      .filter(Boolean);
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (sections.length === 0) {
+      return;
+    }
+
+    let observer;
+    let currentActiveSection = null;
+
+    function createObserver() {
+      if (observer) {
+        observer.disconnect();
+      }
+
+      const screenWidth = window.innerWidth;
+      let rootMargin, threshold;
+
+      if (screenWidth <= 700) {
+        rootMargin = "0px 0px -30% 0px";
+        threshold = 0.2;
+      } else if (screenWidth <= 1400) {
+        rootMargin = "0px 0px -45% 0px";
+        threshold = 0.1;
+      } else {
+        rootMargin = "0px 0px -60% 0px";
+        threshold = 0.2;
+      }
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          let visibleSections = [];
+
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              visibleSections.push(entry.target.id);
+            }
+          });
+
+          if (visibleSections.length > 0) {
+            const activeSection = visibleSections[0];
+
+            if (currentActiveSection !== activeSection) {
+              navLinks.forEach((a) => a.classList.remove("active"));
+
+              const activeLink = navLinks.find((a) => {
+                const href = a.getAttribute("href");
+                return href && href.split("#")[1] === activeSection;
+              });
+
+              if (activeLink) {
+                activeLink.classList.add("active");
+                currentActiveSection = activeSection;
+              }
+            }
+          }
+        },
+        {
+          root: null,
+          rootMargin: rootMargin,
+          threshold: threshold,
+        },
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    }
+
+    createObserver();
+
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(createObserver, 100);
+    });
+
+    setTimeout(() => {
+      if (window.scrollY < 100 && navLinks.length > 0) {
+        navLinks[0].classList.add("active");
+        currentActiveSection = navLinks[0].getAttribute("href").split("#")[1];
+      }
+    }, 100);
+  });
 </script>
 
 <Navbar>
-    <li class="name">
-        <a href={`/${currentLocale}`}>aperezg.dev</a>
-    </li>
-    <li>
-        <ul>
-            <li>
-                <a href="#about-me">{t.about}</a>
-            </li>
-            <li>
-                <a href="#experience">{t.experience}</a>
-            </li>
-            <li>
-                <a href="#projects">{t.projects}</a>
-            </li>
-            <li>
-                <a id="navbar-blog" href={`/${currentLocale}/blog`}
-                    >{t.blog}
-                    <LeftArrowIcon
-                        style="width: 20px; transform: rotate(180deg);"
-                    />
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li>
-        <LanguageSelector class="language-selector-container" />
-    </li>
+  <li class="name">
+    <a href={`/${currentLocale}`}>aperezg.dev</a>
+  </li>
+  <li>
+    <ul>
+      <li>
+        <a href="#about-me">{t.about}</a>
+      </li>
+      <li>
+        <a href="#experience">{t.experience}</a>
+      </li>
+      <li>
+        <a href="#projects">{t.projects}</a>
+      </li>
+      <li>
+        <a id="navbar-blog" href={`/${currentLocale}/blog`}
+          >{t.blog}
+          <LeftArrowIcon style="width: 20px; transform: rotate(180deg);" />
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <LanguageSelector class="language-selector-container" />
+  </li>
 </Navbar>
 
 <style>
-    @media (max-width: 700px) {
-        .name {
-            display: none;
-        }
-        li > ul {
-            gap: 10px;
-            font-size: 0.9rem;
-        }
-    }
-
-    a {
-        text-decoration: none;
-        color: inherit;
-        padding: 6px 8px;
-        border-radius: 6px;
-    }
-
-    #navbar-blog {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-    }
-
+  @media (max-width: 700px) {
     .name {
-        font-size: 18px;
-        font-weight: 700;
+      display: none;
     }
+    li > ul {
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+  }
 
-    a.active {
-        background-color: #2e2eff;
-        color: white;
-        transition: 0.3s;
-    }
+  a {
+    text-decoration: none;
+    color: inherit;
+    padding: 6px 8px;
+    border-radius: 6px;
+  }
 
-    ul {
-        list-style: none;
-        display: flex;
-        gap: 12px;
-        padding: 0;
-        margin: 0;
-        align-items: center;
-    }
+  #navbar-blog {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
 
-    li {
-        cursor: pointer;
-        transition: color 0.3s ease;
-        justify-self: flex-end;
-        font-size: 1rem;
-    }
+  .name {
+    font-size: 18px;
+    font-weight: 700;
+  }
 
-    .language-selector-container {
-        margin-left: auto;
-    }
+  a.active {
+    background-color: #2e2eff;
+    color: white;
+    transition: 0.3s;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+  }
+
+  li {
+    cursor: pointer;
+    transition: color 0.3s ease;
+    justify-self: flex-end;
+    font-size: 1rem;
+  }
+
+  .language-selector-container {
+    margin-left: auto;
+  }
 </style>
