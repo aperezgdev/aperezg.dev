@@ -2,10 +2,12 @@
 import MainLayout from "./MainLayout.astro";
 import NavbarBlog from "../components/NavbarBlog.astro";
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
+const lang = Astro.locals.lang;
 ---
 
-<MainLayout title={`aperezgdev - ${title}`}>
+<MainLayout title={`aperezg.dev | ${title}`} lang={lang} description={description}>
+    <slot name="head" slot="head" />
     <NavbarBlog slot="navbar" />
     <slot />
 </MainLayout>

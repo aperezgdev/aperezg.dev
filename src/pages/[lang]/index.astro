@@ -6,9 +6,24 @@ import Projects from "../../components/sections/Projects.astro";
 import Posts from "../../components/sections/Posts.astro";
 
 const t = Astro.locals.t.home;
+const lang = Astro.locals.lang;
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Alex Perez Garcia",
+  "url": "https://aperezg.dev",
+  "sameAs": [
+    "https://github.com/aperezgdev",
+    "https://linkedin.com/in/aperezgdev"
+  ],
+  "jobTitle": "Backend Developer",
+  "description": Astro.locals.t.seo.description,
+};
 ---
 
-<MainLayout lang={Astro.locals.lang} title="aperezgdev - Alex Perez Garcia">
+<MainLayout lang={lang} title="aperezgdev | Alex Perez Garcia">
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} slot="head" />
   <header>
     <h1>{t.title} <span>Alex Perez Garcia</span></h1>
     <h2>{t.subtitle}</h2>

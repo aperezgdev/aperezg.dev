@@ -1,9 +1,17 @@
 ---
 import NavbarPorfolio from "../components/NavbarPorfolio.astro";
-const { title, lang } = Astro.props;
+const { title, lang, description } = Astro.props;
 import { Font } from "astro:assets";
 
 const t = Astro.locals.t.seo;
+const canonicalUrl = new URL(Astro.url.pathname, "https://aperezg.dev").href;
+const ogLocale = (lang ?? Astro.locals.lang) === "en" ? "en_US" : "es_ES";
+const pageTitle = title ?? "aperezg.dev";
+const metaDescription = description ?? t.description;
+
+const pathname = Astro.url.pathname;
+const esUrl = new URL(pathname.replace(/^\/(en|es)\//, "/es/"), "https://aperezg.dev").href;
+const enUrl = new URL(pathname.replace(/^\/(en|es)\//, "/en/"), "https://aperezg.dev").href;
 ---
 
 <html lang={lang}>
@@ -37,12 +45,33 @@ const t = Astro.locals.t.seo;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="author" content="Alex Perez Garcia" />
-    <meta name="description" content={t.description} />
+    <meta name="description" content={metaDescription} />
     <meta
       name="keywords"
       content="Alex Perez Garcia, aperezg.dev, portfolio, developer, software engineer, projects, blog, backend developer, fullstack developer"
     />
-    <title>{title ?? "aperezg.dev"}</title>
+    <title>{pageTitle}</title>
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- hreflang -->
+    <link rel="alternate" hreflang="es" href={esUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={esUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content="https://aperezg.dev/portfolio-capture.webp" />
+    <meta property="og:locale" content={ogLocale} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content="https://aperezg.dev/portfolio-capture.webp" />
+    <slot name="head" />
   </head>
   <body>
     <slot name="navbar">
