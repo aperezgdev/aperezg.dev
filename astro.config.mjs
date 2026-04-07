@@ -6,10 +6,11 @@ import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
-  adapter: node({
-	  mode: "standalone",
-  }),
-  integrations: [
+	output: 'server',
+	adapter: node({
+		mode: 'standalone',
+	}),
+	integrations: [
     sitemap({
       i18n: {
         defaultLocale: "es",
@@ -28,6 +29,9 @@ export default defineConfig({
   i18n: {
     defaultLocale: "es",
     locales: ["en", "es"],
+    routing: {
+      prefixDefaultLocale: true,
+    },
   },
   site: "https://aperezg.dev",
 });

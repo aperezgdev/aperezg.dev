@@ -6,10 +6,6 @@ import Section from "../../../components/sections/Section.astro";
 
 const posts = await getCollection("blog");
 
-export const getStaticPaths = () => {
-    return [{ params: { lang: "en" } }, { params: { lang: "es" } }];
-};
-
 const postsByLang = posts.filter(
     (post) => post.data.language === Astro.locals.lang,
 );

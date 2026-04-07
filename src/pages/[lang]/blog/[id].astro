@@ -3,19 +3,12 @@ import { getCollection, render } from "astro:content";
 import PostLayout from "../../../layout/PostLayout.astro";
 import LeftArrowIcon from "../../../components/icons/LeftArrowIcon.astro";
 
-export async function getStaticPaths() {
-  const posts = await getCollection("blog");
-  const langs = ["en", "es"];
+const id = Astro.params.id;
+const posts = await getCollection("blog");
+const post = posts.find((p) => p.data.id === id);
 
-  return langs.flatMap((lang) =>
-    posts.map((post) => ({
-      params: { lang, id: post.data.id },
-      props: { post },
-    })),
-  );
-}
+if (!post) return Astro.redirect("/404");
 
-const { post } = Astro.props;
 const { title, publishedDate, estimatedTimeToRead } = (post as any).data;
 
 const lang = Astro.params.lang;

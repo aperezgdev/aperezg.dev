@@ -5,10 +5,6 @@ import Experience from "../../components/sections/Experience.astro";
 import Projects from "../../components/sections/Projects.astro";
 import Posts from "../../components/sections/Posts.astro";
 
-export const getStaticPaths = () => {
-  return [{ params: { lang: "en" } }, { params: { lang: "es" } }];
-};
-
 const t = Astro.locals.t.home;
 ---
 
