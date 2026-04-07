@@ -1,12 +1,14 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
 
-import vercel from "@astrojs/vercel";
 import sitemap from "@astrojs/sitemap";
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
-  adapter: vercel(),
+  adapter: node({
+	  mode: "standalone",
+  }),
   integrations: [
     sitemap({
       i18n: {
