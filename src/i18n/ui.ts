@@ -41,7 +41,7 @@ export const ui = {
             "Desarrollo microservicios utilizando tecnologias como Java con Spring, centradas en el rendimiento, buenas prácticas de código y además de ser facilmente escalables. Entre mis principales tareas tambien esta el diseño y la creacion de diferentes APIs REST.",
         },
         second: {
-          title: "BBVA Technology (2021 Jul - 2023 Nov):",
+          title: "AXPE Consulting (2021 Jul - 2023 Nov):",
           param:
             "Matenimiento y desarrollo de aplicaciones escritas en Java con Spring Boot, principalmente monolitos, muy ocasionalmente ayudaba en el front.",
         },
@@ -106,7 +106,7 @@ export const ui = {
             "I develop microservices using technologies like Java with Spring, focusing on performance, code best practices, and scalability. My main tasks also include designing and creating various REST APIs.",
         },
         second: {
-          title: "BBVA Technology (2021 Jul - 2023 Nov):",
+          title: "AXPE Consulting (2021 Jul - 2023 Nov):",
           param:
             "Maintenance and development of applications written in Java with Spring Boot, mainly monoliths, occasionally helping with the front end.",
         },
