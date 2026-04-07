@@ -20,18 +20,14 @@ export default defineConfig({
       },
     }),
   ],
+  fonts: [{
+	provider: fontProviders.fontsource(),
+	name: "Roboto",
+	cssVariable: "--font-roboto",
+  }],
   i18n: {
     defaultLocale: "es",
     locales: ["en", "es"],
   },
   site: "https://aperezg.dev",
-  experimental: {
-    fonts: [
-      {
-        provider: fontProviders.fontsource(),
-        name: "Roboto",
-        cssVariable: "--font-roboto",
-      },
-    ],
-  },
 });

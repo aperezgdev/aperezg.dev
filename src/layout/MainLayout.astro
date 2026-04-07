@@ -1,6 +1,5 @@
 ---
 import NavbarPorfolio from "../components/NavbarPorfolio.astro";
-import Analytics from "@vercel/analytics/astro";
 const { title, lang } = Astro.props;
 import { Font } from "astro:assets";
 
@@ -52,7 +51,7 @@ const t = Astro.locals.t.seo;
     <main>
       <slot />
     </main>
-  </body><Analytics />
+  </body>
 </html>
 
 <style>
